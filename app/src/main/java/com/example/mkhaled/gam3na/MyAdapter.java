@@ -1,0 +1,91 @@
+package com.example.mkhaled.gam3na;
+
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.Collections;
+import java.util.List;
+
+/**
+ * Created by mkhaled on 30/07/17.
+ */
+
+    public class MyAdapter extends RecyclerView.Adapter <MyAdapter.MyViewHolder>{
+
+
+    private LayoutInflater inflater;
+    List<ItemData> itemDataList= Collections.emptyList();
+    Context con;
+
+
+
+
+    public MyAdapter(Context context, List<ItemData> itemDataList) {
+        inflater=LayoutInflater.from(context);
+        this.itemDataList=itemDataList;
+        con=context;
+
+    }
+
+    @Override
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view=inflater.inflate(R.layout.list_item,parent,false);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+
+        MyViewHolder holder=new MyViewHolder(view);
+
+
+        return holder;
+
+    }
+
+    @Override
+    public void onBindViewHolder(MyViewHolder    holder, int position) {
+
+        ItemData itemData=itemDataList.get(position);
+        holder.itemImage.setImageResource(itemData.getImgId());
+        holder.itemTitle.setText(itemData.getTitle());
+
+
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return itemDataList.size();
+    }
+
+
+    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        ImageView itemImage;
+        TextView itemTitle;
+
+
+
+        public MyViewHolder(View itemView) {
+            super(itemView);
+            itemImage=(ImageView) itemView.findViewById(R.id.item_image);
+            itemTitle=(TextView) itemView.findViewById(R.id.item_title);
+
+            itemView.setOnClickListener(this);
+        }
+
+
+        @Override
+        public void onClick(View view) {
+            int position =getAdapterPosition();
+            Toast.makeText(con, itemDataList.get(position).getTitle()+" Clicked", Toast.LENGTH_SHORT).show();
+
+        }
+    }
+}
