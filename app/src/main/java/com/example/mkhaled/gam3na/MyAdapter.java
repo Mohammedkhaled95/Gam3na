@@ -1,6 +1,8 @@
 package com.example.mkhaled.gam3na;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,46 +18,35 @@ import java.util.List;
  * Created by mkhaled on 30/07/17.
  */
 
-    public class MyAdapter extends RecyclerView.Adapter <MyAdapter.MyViewHolder>{
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
 
     private LayoutInflater inflater;
-    List<ItemData> itemDataList= Collections.emptyList();
+    List<ItemData> itemDataList = Collections.emptyList();
     Context con;
 
 
-
-
     public MyAdapter(Context context, List<ItemData> itemDataList) {
-        inflater=LayoutInflater.from(context);
-        this.itemDataList=itemDataList;
-        con=context;
+        inflater = LayoutInflater.from(context);
+        this.itemDataList = itemDataList;
+        con = context;
 
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view=inflater.inflate(R.layout.list_item,parent,false);
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });
-
-        MyViewHolder holder=new MyViewHolder(view);
-
-
+        View view = inflater.inflate(R.layout.list_item, parent, false);
+        MyViewHolder holder = new MyViewHolder(view);
         return holder;
 
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder    holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, int position) {
 
-        ItemData itemData=itemDataList.get(position);
+        ItemData itemData = itemDataList.get(position);
         holder.itemImage.setImageResource(itemData.getImgId());
         holder.itemTitle.setText(itemData.getTitle());
-
 
 
     }
@@ -71,11 +62,10 @@ import java.util.List;
         TextView itemTitle;
 
 
-
         public MyViewHolder(View itemView) {
             super(itemView);
-            itemImage=(ImageView) itemView.findViewById(R.id.item_image);
-            itemTitle=(TextView) itemView.findViewById(R.id.item_title);
+            itemImage = (ImageView) itemView.findViewById(R.id.item_image);
+            itemTitle = (TextView) itemView.findViewById(R.id.item_title);
 
             itemView.setOnClickListener(this);
         }
@@ -83,8 +73,9 @@ import java.util.List;
 
         @Override
         public void onClick(View view) {
-            int position =getAdapterPosition();
-            Toast.makeText(con, itemDataList.get(position).getTitle()+" Clicked", Toast.LENGTH_SHORT).show();
+            int position = getAdapterPosition();
+            Intent i = new Intent(view.getContext(), EventList.class);
+            view.getContext().startActivity(i);
 
         }
     }
