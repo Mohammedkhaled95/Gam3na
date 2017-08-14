@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Gam3na</string>
+    <string name="recovery_button">Recover My Account</string>
+    <string name="Signup_button">Sign Up</string>
+    <string name="password_hint"> ********</string>
+    <string name="forgot_password"><u>Fogot Password ?</u></string>
+    <string name="new_user"><u>New User</u></string>
+    <string name="login_button">LOGIN</string>
+    <string name="slash">|</string>
+    <string name="phone_hint">Phone</string>
+    <string name="register">Register</string>
+    <string name="name_hint">Name</string>
+    <string name="email_hint">Yourname@Example.com</string>
+
 </resources>

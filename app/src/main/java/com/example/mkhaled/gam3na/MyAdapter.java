@@ -21,9 +21,9 @@ import java.util.List;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
 
-    private LayoutInflater inflater;
     List<ItemData> itemDataList = Collections.emptyList();
     Context con;
+    private LayoutInflater inflater;
 
 
     public MyAdapter(Context context, List<ItemData> itemDataList) {
@@ -74,7 +74,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();
+
             Intent i = new Intent(view.getContext(), EventList.class);
+            i.putExtra("selectedcommunity", position);
             view.getContext().startActivity(i);
 
         }

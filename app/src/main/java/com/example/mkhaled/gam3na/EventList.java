@@ -1,5 +1,6 @@
 package com.example.mkhaled.gam3na;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,8 +33,9 @@ public class EventList extends AppCompatActivity {
         myFab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //launch create event activity here 
-                Toast.makeText(EventList.this, "create event !", Toast.LENGTH_SHORT).show();
-
+                Intent i = new Intent(EventList.this, CreateEvent.class);
+                startActivity(i);
+                finish();
             }
         });
 
@@ -44,8 +46,10 @@ public class EventList extends AppCompatActivity {
         List<EventData> data = new ArrayList<>();
 
 
-        String[] titles = {"title1", "title2", "title3", "title4"};
+        //some fake data
 
+
+        String[] titles = {"title1", "title2", "title3", "title4"};
         String[] Descriptions = {"this is event 1 ", "this is event 2 ", "this is event 3 ", "this is event 4"};
         String[] times = {"time1", "time2", "time3", "time4"};
         String[] places = {"place1", "place2", "place3", "place4"};
