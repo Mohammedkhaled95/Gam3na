@@ -11,5 +11,9 @@
     <string name="register">Register</string>
     <string name="name_hint">Name</string>
     <string name="email_hint">Yourname@Example.com</string>
+    <string name="loading_empty">Loading…</string>
+    <string name="open">open</string>
+    <string name="close">close</string>
+
 
 </resources>

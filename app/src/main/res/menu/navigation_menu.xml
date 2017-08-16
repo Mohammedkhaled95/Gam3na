@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/nav_app"
+        android:icon="@drawable/logo"
+        android:orderInCategory="100"
+        android:title="Communities" />
+
+    <item
+        android:id="@+id/nav_setting"
+        android:icon="@drawable/logo"
+        android:orderInCategory="100"
+
+
+        android:title="Setting" />
+
+
+    <item
+        android:id="@+id/nav_logout"
+        android:icon="@drawable/logo"
+        android:orderInCategory="100"
+
+        android:title="Log Out" />
+
+
+</menu>

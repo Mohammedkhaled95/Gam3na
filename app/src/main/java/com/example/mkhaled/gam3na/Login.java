@@ -66,7 +66,8 @@ public class Login extends AppCompatActivity {
                                 @Override
                                 public void handleResponse(BackendlessUser response) {
                                     Intent i = new Intent(Login.this, MainActivity.class);
-                                    i.putExtra("email", emailEditText.getText().toString());
+                                    i.putExtra("email", response.getEmail());
+                                    // i.putExtra("name", response.getProperty("name").toString());
                                     startActivity(i);
                                     nproProgressBar.setVisibility(View.INVISIBLE);
                                     finish();
@@ -100,7 +101,6 @@ public class Login extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(Login.this, Register.class);
                 startActivity(i);
-                finish();
 
             }
         });

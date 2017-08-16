@@ -24,11 +24,14 @@ public class CreateEvent extends AppCompatActivity {
     EditText editTextCreateTime;
     Button createbtn;
 
+    int community;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
+
+        community = getIntent().getIntExtra("selectedcommunity", -1);
 
 
         editTextCreateTime = (EditText) findViewById(R.id.create_time);
@@ -59,6 +62,8 @@ public class CreateEvent extends AppCompatActivity {
                     eventData.put("description", editTextCreateDescription.getText().toString());
                     eventData.put("time", editTextCreateTime.getText().toString());
                     eventData.put("place", editTextCreatePlace.getText().toString());
+                    eventData.put("community", String.valueOf(community));
+                    Log.e("Community", String.valueOf(community));
 
                     Backendless.Data.of("EVENT").save(eventData, new AsyncCallback<Map>() {
                         @Override
