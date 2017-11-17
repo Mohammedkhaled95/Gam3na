@@ -42,13 +42,16 @@ public class EventList extends AppCompatActivity {
     int community;
     DrawerLayout mDrawerLayout;
     ActionBarDrawerToggle mToggle;
+    List<Map> retrievedMap = new ArrayList<>();
+    List<EventData> eventDataList = new ArrayList<>();
+
+
 
    /* String name;
     String email;
 
     TextView tvname;
     TextView tvemail;*/
-
 
 
     @Override
@@ -69,11 +72,7 @@ public class EventList extends AppCompatActivity {
         community = getIntent().getIntExtra("selectedcommunity", -1);
 
         eventRecyclerView = (RecyclerView) findViewById(R.id.event_list);
-        adapter = new EventListAdapter(this, fillEventList());
-
-        eventRecyclerView.setAdapter(adapter);
-
-        eventRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        retrieveData(String.valueOf(community));
         myFab = (FloatingActionButton) findViewById(R.id.myFAB);
         myFab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -96,33 +95,39 @@ public class EventList extends AppCompatActivity {
     }
 
 
-    List<Map> retrieveData(String community) {
-        final List<Map> retrievedMap = new ArrayList<>();
-
+    void retrieveData(String community) {  //List<Map>
 
         Backendless.setUrl(Defaults.SERVER_URL);
         Backendless.initApp(getApplicationContext(),
                 Defaults.APPLICATION_ID,
                 Defaults.API_KEY);
 
-
         String whereClause = "community = " + community;
         DataQueryBuilder queryBuilder = DataQueryBuilder.create();
         queryBuilder.setWhereClause(whereClause);
-
 
         Backendless.Data.of("EVENT").find(queryBuilder,
                 new AsyncCallback<List<Map>>() {
                     @Override
                     public void handleResponse(List<Map> foundContacts) {
                         // every loaded object from the "EVENT" table is now an individual java.util.Map
+                        List<EventData> eventlist = new ArrayList<>();
                         if (foundContacts.size() > 0) {
                             for (int i = 0; i < foundContacts.size(); i++) {
 
                                 Map m = foundContacts.get(i);
-
+                                EventData data = new EventData();
+                                data.setTitle(m.get("title").toString());
+                                data.setDescription(m.get("description").toString());
+                                data.setPlace(m.get("place").toString());
+                                data.setTime(m.get("time").toString());
                                 retrievedMap.add(m);
+                                eventlist.add(data);
+                                adapter = new EventListAdapter(getApplication(), eventlist);
 
+                                eventRecyclerView.setAdapter(adapter);
+
+                                eventRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
 
                             }
                             Log.e("Returned List SIZE", String.valueOf(retrievedMap.size()));
@@ -136,23 +141,20 @@ public class EventList extends AppCompatActivity {
                     }
                 });
         Log.e("2222222 Returned SIZE", String.valueOf(retrievedMap.size()));
-
-        return retrievedMap;
     }
 
 
-    List<EventData> fillEventList() {
-        List<EventData> eventDataList = new ArrayList<>();
-        List<Map> lmap = retrieveData(String.valueOf(community));
+    List<EventData> fillEventList() {//List<Map> lmap
+        //  List<Map> lmap = retrieveData(String.valueOf(community));
 
 
-        if (retrieveData(String.valueOf(community)).size() > 0) {
-            for (int i = 0; i < lmap.size(); i++) {
+        if (retrievedMap.size() > 0) {
+            for (int i = 0; i < retrievedMap.size(); i++) {
                 EventData current = new EventData();
-                current.setTitle(lmap.get(i).get("title").toString());
-                current.setTime(lmap.get(i).get("time").toString());
-                current.setPlace(lmap.get(i).get("place").toString());
-                current.setDescription(lmap.get(i).get("description").toString());
+                current.setTitle(retrievedMap.get(i).get("title").toString());
+                current.setTime(retrievedMap.get(i).get("time").toString());
+                current.setPlace(retrievedMap.get(i).get("place").toString());
+                current.setDescription(retrievedMap.get(i).get("description").toString());
 
 
                 eventDataList.add(current);
